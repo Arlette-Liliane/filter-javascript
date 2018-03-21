@@ -53,7 +53,11 @@ var categorie = dataJson.map(function (value) {
         seenNames[currentObject.price_range] = true;
         return true;
     }
-});
+}).sort(function (a, b) {
+    if (a.price_range< b.price_range) return -1;
+	else if (a.price_range == b.price_range) return 0;
+	else return 1
+  });;
 
 loadCategorie(categorie);
 
@@ -130,6 +134,8 @@ loadCard(cardInfo);
 
 
 
+
+
 function loadRegion(value){
 
     var selectHtml = document.getElementById('region-filters');
@@ -168,7 +174,7 @@ function loadCategorie(value){
     
         var selectHtml = document.getElementById('categorie-filters');
         var valueHtml = '';
-        for (var i = 0; i < value.length; i++) {
+        for (var i = 0; i < 4; i++) {
             valueHtml += ' <li class="filter">'+
                                 '<label>';
             valueHtml += '<input type="checkbox" class="myf" name="categorie" data-value="'+value[i].price_range+'" />'+
