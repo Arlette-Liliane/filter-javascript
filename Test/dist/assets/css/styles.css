@@ -1,0 +1,51 @@
+.wine-block {
+  background-color: #27278a;
+}
+
+.categorie-block {
+  background-color: #27278a;
+}
+
+body {
+  background: black;
+}
+
+.container-fluid {
+  max-width: 1200px;
+}
+
+header {
+  margin-bottom: 2em;
+  padding: 2em 1em;
+  color: #fff;
+  background: blue;
+}
+
+header h1 {
+  font-weight: 200;
+}
+
+.card {
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, .1);
+}
+
+.card img {
+  width: 100%;
+}
+
+[class*='row'] {
+  margin-bottom: 1em;
+  justify-content: center;
+}
+
+[class*='col-'] {
+  width: 100%;
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+}
+
+.filters {
+  padding-left: 0;
+  list-style: none;
+}

@@ -1,0 +1,53 @@
+// styles.scss
+
+
+$color: rgb(39, 39, 138);
+
+
+.wine-block{
+  background-color: $color;
+}
+.categorie-block{
+  background-color: $color;
+}
+
+body { background: black }
+
+.container-fluid { max-width: 1200px; }
+
+header {
+	background:blue;
+	padding: 2em 1em;
+	color: #fff;
+	margin-bottom: 2em;
+	h1 {
+		font-weight: 200;
+	}
+}
+
+.card {
+	background: #fff;
+	box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	img {
+		width: 100%;
+	}
+}
+
+[class*="row"] {
+	margin-bottom: 1em;
+  justify-content: center;
+}
+
+[class*="col-"] {
+	padding-top: .75rem;
+	padding-bottom: .75rem;
+	width: 100%;
+}
+
+.filters {
+  padding-left: 0;
+  list-style: none;
+}
+
+
+
