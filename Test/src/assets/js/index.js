@@ -102,7 +102,7 @@ var countChecked = function () {
         }
         //filter with value checked
         cardInfoFiltre = cardInfo.filter(function (currentObject) {
-            let flag = false;
+            var flag = false;
             if (data) {
                 data.forEach(function (element) {
 
