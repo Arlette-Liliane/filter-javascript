@@ -8,6 +8,7 @@ concat = require('gulp-concat'),
 deporder = require('gulp-deporder'),
 stripdebug = require('gulp-strip-debug'),
 uglify = require('gulp-uglify'),
+sourcemaps = require('gulp-sourcemaps');
 
 // Include plugins
  plugins = require('gulp-load-plugins')(), // tous les plugins de package.json
@@ -37,48 +38,20 @@ gulp.task('minify', function(){
         .pipe(gulp.dest(destination + '/assets/css/'));
 });
 
-// image processing
-gulp.task('images', function() {
-    var myDest = destination + '/assets/images/';
-    return gulp.src(source + 'images/**/*')
-      .pipe(newer(dest))
-      .pipe(imagemin({ optimizationLevel: 5 }))
-      .pipe(gulp.dest(myDest));
-});
-
-// HTML processing
-gulp.task('html', ['images'], function() {
-    var
-      page = gulp.src('**/*')
-        .pipe(newer(destination));
-  
-    // minify production code
-    if (!devBuild) {
-      page = page.pipe(htmlclean());
-    }
-  
-    return page.pipe(gulp.dest(destination));
-});
-
 // JavaScript processing
 gulp.task('js', function() {
 
-    var jsbuild = gulp.src(source + 'assets/js/**/*')
-      .pipe(deporder())
-      .pipe(concat('main.js'));
-  
-    if (!devBuild) {
-      jsbuild = jsbuild
-        .pipe(stripdebug())
-        .pipe(uglify());
-    }
+    var jsbuild = gulp.src(source + 'assets/js/**/*.js')
+    .pipe(sourcemaps.init())
+    .pipe(concat('bundle.js'))
+    .pipe(sourcemaps.write());
   
     return jsbuild.pipe(gulp.dest(destination + 'assets/js/'));
   
 });
 
 // Tâche "build"
-gulp.task('build', ['css']);
+gulp.task('build', ['css', 'js']);
 
 // Tâche "prod" = Build + minify
 gulp.task('prod', ['build',  'minify']);

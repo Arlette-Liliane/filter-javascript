@@ -1,9 +1,23 @@
 .wine-block {
-  background-color: #27278a;
+  background-color: #3e8de2;
+}
+
+.price {
+  font-size: 2em;
 }
 
 .categorie-block {
-  background-color: #27278a;
+  background-color: #3e8de2;
+}
+
+.card-body {
+  margin-top: -24px;
+  border-top: 1px solid #000;
+}
+
+.card-deck .card {
+  border-color: #040458;
+  background-color: #3e8de2;
 }
 
 body {
@@ -17,8 +31,9 @@ body {
 header {
   margin-bottom: 2em;
   padding: 2em 1em;
-  color: #fff;
-  background: blue;
+  text-align: center;
+  color: black;
+  background: #3e8de2;
 }
 
 header h1 {
@@ -39,10 +54,20 @@ header h1 {
   justify-content: center;
 }
 
+.title {
+  border-color: #040458;
+  background-color: #3e8de2;
+}
+
+.filters {
+  color: white;
+}
+
 [class*='col-'] {
   width: 100%;
   padding-top: .75rem;
   padding-bottom: .75rem;
+  color: black;
 }
 
 .filters {

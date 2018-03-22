@@ -4,15 +4,14 @@
     <!-- En-tête de la page -->
     <meta charset="utf-8"/>
     <title>Titre</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!--<link rel="stylesheet" href="uikit/dist/css/uikit.min.css" />-->
+    <link rel="stylesheet" href="dist/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="dist/assets/css/styles.css" type="text/css">
 </head>
 
 <body>
 
 <header role="banner">
-    <h1>Fete du vin 2017 <span class="nb-article"></span> articles</h1>
+    <h1>Fete du vin 2017 <em><span class="nb-article"></span></em> articles</h1>
 
     <h2><span class="nb-article-filtre"></span> articles affichés</h2>
 </header>
@@ -21,46 +20,44 @@
 
     <div class="row categorie-block">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="robe-vin">
-            Robe du vin
+            <button class="title">Robe du vin</button>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="categorie">
-            Categorie
+            <button class="title">Categorie</button>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="region">
-            Region
+            <button class="title">Region</button>
         </div>
     </div>
 
     <div class="row">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <ul id="robe-filters" class="filters">
-                
+
             </ul>
         </div>
 
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             <ul id="categorie-filters" class="filters">
-                
+
             </ul>
         </div>
 
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 
             <ul id="region-filters" class="filters">
-                
+
             </ul>
         </div>
     </div>
 
 
-    <div class="row wine-block" >
-    <!--here wine card-->
+    <div class="row wine-block">
+        <!--here wine card-->
     </div>
 </div>
 <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+        src="dist/assets/js/jquery-3.3.1.min.js"></script>
 <script src="src/assets/js/index.js"></script>
 
 </body>
