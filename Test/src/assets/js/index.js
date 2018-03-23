@@ -130,11 +130,10 @@ function multiFilter(array, filters) {
     //un tableau des propriétés propres à un objet
     const filterKeys = Object.keys(filters);
     // filters all elements passing the criteria
-    return array.filter((item) = > {
+    return array.filter((item) => {
         // dynamically validate all filter criteria
-        return filterKeys.every(key = > !!~filters[key].indexOf(item[key])
-)
-})
+        return filterKeys.every(key => !!~filters[key].indexOf(item[key]))
+    })
 }
 
 function deleteEmptyArray(value) {
