@@ -1,14 +1,15 @@
-var nbArticle;
-var nbrArticleFiltre;
-var dataJson;
-var seenNames = {};
-var selected = [];
-var data = [];
-var categorieFilter = false;
-var colorFilter = false;
-var regionFilter = false;
+var
 
-dataJson = loadJsonFile();
+    dataJson,
+    seenNames = {},
+    selected = {},
+    dataRegion = [],
+    dataCategorie = [],
+    dataColor = [],
+
+//dataJson = loadJsonFile();
+
+    dataJson = mydata;
 
 document.getElementsByClassName('nb-article')[0].innerHTML = dataJson.length;
 
@@ -65,78 +66,107 @@ var categorie = dataJson.map(function (value) {
 
 loadCategorie(categorie);
 
-
 var cardInfo = dataJson.map(function (value) {
     return {
         'domain': value.domain,
         'appelation': value.appellation,
         'millesime': value.millesime,
         'price_vp_bundle': value.price_vp_bundle,
-        'categorie': value.price_range,
+        'price_range': value.price_range,
         'color': value.color,
         'region': value.region
     }
 })
 
-var data = [];
+
 var countChecked = function () {
     var n = $("input:checked").length;
 
     if (parseInt(n) > 0) {
 
-        selected[$(this).attr('name')] = $(this).attr('data-value');
-        index = selected.indexOf($(this).attr('data-value'));
-
-
-        data.push(selected);
         //if the value is unchecked delete value in array selected
-
-
         if ($("input[data-value*=" + $(this).attr('data-value') + "]").prop("checked") === false) {
-            selected = [];
-            data = [];
+            initArray();
             $('input:checked').each(function () {
-                selected[$(this).attr('name')] = $(this).attr('data-value');
-                data.push(selected);
+                console.log("value checked" + $('input:checked').attr('name'))
+                selected = CreateFilterWithCheckboxValue($(this));
             });
         }
+        else
+            selected = CreateFilterWithCheckboxValue($(this));
+        console.log(selected)
         //filter with value checked
-        cardInfoFiltre = cardInfo.filter(function (currentObject) {
-            var flag = false;
-            if (data) {
-                data.forEach(function (element) {
-
-                    categorieFilter = element['categorie'] ? currentObject.categorie === element['categorie'] : true;
-                    colorFilter = element['color'] ? currentObject.color === element['color'] : true;
-                    regionFilter = element['region'] ? currentObject.region === element['region'] : true;
-                    flag = categorieFilter && colorFilter && regionFilter;
-                });
-            }
-
-            else
-                flag = true;
-            return flag;
-
-        });
-
+        cardInfoFiltre = multiFilter(cardInfo, selected)
         loadCard(cardInfoFiltre);
+        console.log(cardInfoFiltre.map(function (value) {
+            return {
+                'price_range': value.price_range,
+                'color': value.color,
+                'region': value.region
+            }
+        }));
         //update value for article number filter
         document.getElementsByClassName('nb-article-filtre')[0].innerHTML = cardInfoFiltre.length;
 
     }
     else {
+        initArray();
         loadCard(cardInfo);
         document.getElementsByClassName('nb-article-filtre')[0].innerHTML = cardInfo.length;
-
     }
-
 };
 
 $("input[type=checkbox]").on("click", countChecked);
-
-
 loadCard(cardInfo);
 
+function initArray() {
+    selected = [];
+    dataRegion = [];
+    dataCategorie = [];
+    dataColor = [];
+}
+
+function multiFilter(array, filters) {
+    //un tableau des propriétés propres à un objet
+    const filterKeys = Object.keys(filters);
+    // filters all elements passing the criteria
+    return array.filter((item) = > {
+        // dynamically validate all filter criteria
+        return filterKeys.every(key = > !!~filters[key].indexOf(item[key])
+)
+})
+}
+
+function deleteEmptyArray(value) {
+    if (selected.region.length == 0)
+        delete selected['region'];
+    if (selected.price_range.length == 0)
+        delete selected['price_range'];
+    if (selected.color.length == 0)
+        delete selected['color'];
+}
+
+function CreateFilterWithCheckboxValue(self) {
+    if (self.attr('name') == "region") {
+        dataRegion.push(self.attr('data-value'));
+    }
+    if (self.attr('name') == "categorie") {
+        dataCategorie.push(self.attr('data-value'));
+    }
+    if (self.attr('name') == "color") {
+        dataColor.push(self.attr('data-value'));
+    }
+
+    selected = {
+        "region": dataRegion,
+        "price_range": dataCategorie,
+        "color": dataColor
+    };
+
+    deleteEmptyArray(selected);
+
+    return selected;
+}
 
 function loadRegion(value) {
 
@@ -150,9 +180,7 @@ function loadRegion(value) {
         valueHtml += '   </label></li>';
     }
 
-
     selectHtml.innerHTML = valueHtml;
-
 }
 
 function loadRobeVin(value) {
@@ -167,7 +195,6 @@ function loadRobeVin(value) {
         valueHtml += '   </label></li>';
     }
     selectHtml.innerHTML = valueHtml;
-
 }
 
 function loadCategorie(value) {
@@ -187,11 +214,11 @@ function loadCategorie(value) {
 
 function loadCard(value) {
     var cardHtml = document.getElementsByClassName('wine-block')[0]
-    var valueHtml = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 grid"><div class="row card-deck grid-items">';
+    var valueHtml = '<div class="cards-block"><div class="row card-deck grid-items">';
     var j = 1;
     for (var i = 0; i < value.length; i++) {
 
-        valueHtml += '<div class="card grid-item grid-item--' + value[i].color + ' grid-item--' + value[i].price_range + ' grid-item--' + value[i].region + '">' +
+        valueHtml += '<div class="card">' +
             '                    <div class="card-header">' +
             '                        <div class="row">' +
             '                            <div class="col-md-8">' +
@@ -206,13 +233,13 @@ function loadCard(value) {
             '' +
             '                    </div>' +
             '                    <div class="card-body">' +
-            '                        <img class="card-img-top" src="src/assets/img/720x350.png" alt="Card image cap">' +
+            '                        <img class="card-img-top" src="dist/assets/img/720x350.png" alt="Card image cap">' +
             '                    </div>' +
             '                </div>';
 
         if (j == 3) {
             valueHtml += '</div></div>';
-            valueHtml += '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><div class="row card-deck">';
+            valueHtml += '<div class="cards-block"><div class="row card-deck">';
             j = 0;
         }
         j++
