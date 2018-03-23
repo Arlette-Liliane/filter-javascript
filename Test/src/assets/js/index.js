@@ -7,9 +7,10 @@ var
     dataCategorie = [],
     dataColor = [],
 
-//dataJson = loadJsonFile();
+dataJson = loadJsonFile();
 
-    dataJson = mydata;
+/** if you don't have wamp where other server uncomment this line***/
+//dataJson = mydata;
 
 document.getElementsByClassName('nb-article')[0].innerHTML = dataJson.length;
 
