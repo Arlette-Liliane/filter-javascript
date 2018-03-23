@@ -89,23 +89,14 @@ var countChecked = function () {
         if ($("input[data-value*=" + $(this).attr('data-value') + "]").prop("checked") === false) {
             initArray();
             $('input:checked').each(function () {
-                console.log("value checked" + $('input:checked').attr('name'))
                 selected = CreateFilterWithCheckboxValue($(this));
             });
         }
         else
             selected = CreateFilterWithCheckboxValue($(this));
-        console.log(selected)
         //filter with value checked
         cardInfoFiltre = multiFilter(cardInfo, selected)
         loadCard(cardInfoFiltre);
-        console.log(cardInfoFiltre.map(function (value) {
-            return {
-                'price_range': value.price_range,
-                'color': value.color,
-                'region': value.region
-            }
-        }));
         //update value for article number filter
         document.getElementsByClassName('nb-article-filtre')[0].innerHTML = cardInfoFiltre.length;
 

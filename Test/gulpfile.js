@@ -10,7 +10,7 @@ stripdebug = require('gulp-strip-debug'),
 uglify = require('gulp-uglify'),
 sourcemaps = require('gulp-sourcemaps'),
 pump = require('pump'),
-minify = require('gulp-minify'),
+myMinify = require('gulp-minify'),
 
 // Include plugins
  plugins = require('gulp-load-plugins')(), // tous les plugins de package.json
@@ -25,7 +25,7 @@ gulp.task('css', function () {
   });
 
   gulp.task('sass', function () {
-    return gulp.src(source + '/assets/css/styles.scss')
+    return gulp.src(source + '/assets/css/*.scss')
       .pipe(plugins.sass())
       //ordonner css
       .pipe(plugins.csscomb())
@@ -63,7 +63,7 @@ gulp.task('js', function(cb) {
     pump([
         gulp.src(source + '/assets/js/**/*'),
         deporder(),
-        minify({
+        myMinify({
             ext:{
                 min:'.js'
             },
@@ -73,15 +73,7 @@ gulp.task('js', function(cb) {
         gulp.dest(destination + '/assets/js/')
       ],
       cb
-    );
-
-   /*return gulp.src(source + '/assets/js/')
-    .pipe(deporder())
-    .pipe(concat('main.js'))
-    .pipe(stripdebug())
-    .pipe(uglify())
-    .pipe(gulp.dest(destination + '/assets/js/'));*/
-  
+    ); 
 });
 
 // Tâche "build"
@@ -90,7 +82,7 @@ gulp.task('build', ['sass', 'css', 'js', 'images']);
 // Tâche "prod" = Build + minify
 gulp.task('prod', ['build', 'minify']);
 
-// Tâche "watch" = je surveille *less
+// Tâche "watch" = je surveille *sass
 gulp.task('watch', function () {
     gulp.watch(source + '/assets/css/*.scss', ['build']);
     gulp.watch(source + '/assets/js/**/*', ['js']);
